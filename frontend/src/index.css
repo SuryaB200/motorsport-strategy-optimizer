@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #090D12;
+    color: #F4F6F8;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Subtle modern scrollbars for pit-wall data density */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090D12;
+}
+::-webkit-scrollbar-thumb {
+  background: #28313D;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F20D2F;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.f1-red-glow {
+  box-shadow: 0 0 15px rgba(242, 13, 47, 0.25);
+}
+
+.f1-panel-border {
+  border: 1px solid #28313D;
+}
+
+/* ========================================================= */
+/* GLASSMORPHISM THEME (Frosted glass & ambient illumination)*/
+/* ========================================================= */
+.glass-active {
+  background: radial-gradient(circle at 10% 15%, rgba(242, 13, 47, 0.09) 0%, transparent 45%),
+              radial-gradient(circle at 90% 85%, rgba(22, 119, 232, 0.08) 0%, transparent 45%),
+              #090D12 !important;
+}
+
+.glass-active header {
+  background-color: rgba(13, 18, 25, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.glass-active aside {
+  background-color: rgba(13, 18, 25, 0.65) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.glass-active .bg-\[\#111821\] {
+  background-color: rgba(17, 24, 33, 0.62) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+.glass-active .bg-\[\#151D27\] {
+  background-color: rgba(21, 29, 39, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.glass-active .bg-\[\#0D1219\] {
+  background-color: rgba(13, 18, 25, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ========================================================= */
+/* GLOW THEME (Neon racing accents)                          */
+/* ========================================================= */
+.glow-active button.bg-\[\#F20D2F\],
+.glow-active .shadow-lg {
+  box-shadow: 0 0 18px rgba(242, 13, 47, 0.4) !important;
+}

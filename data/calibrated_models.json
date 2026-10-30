@@ -1,0 +1,150 @@
+{
+  "training_timestamp": "2026-10-30T14:32:02.278819+00:00",
+  "dataset_source": "C:/SDM 2 MOTOR/datasets",
+  "pit_model": {
+    "sample_count": 6105,
+    "mean_pit_loss": 24.07,
+    "median_pit_loss": 23.25,
+    "std_pit_loss": 4.12,
+    "safety_car_pit_loss": 13.24,
+    "circuit_pit_losses": {
+      "BAK": 21.02,
+      "albert_park": 23.78,
+      "americas": 25.27,
+      "bahrain": 24.83,
+      "buddh": 23.94,
+      "catalunya": 21.96,
+      "hockenheimring": 20.19,
+      "hungaroring": 21.86,
+      "interlagos": 23.02,
+      "istanbul": 22.59,
+      "marina_bay": 30.25,
+      "monaco": 26.87,
+      "monza": 24.62,
+      "nurburgring": 21.52,
+      "red_bull_ring": 21.72,
+      "rodriguez": 23.51,
+      "sepang": 25.39,
+      "shanghai": 22.26,
+      "silverstone": 28.19,
+      "sochi": 31.2,
+      "spa": 23.31,
+      "suzuka": 23.59,
+      "valencia": 21.97,
+      "villeneuve": 23.65,
+      "yas_marina": 22.33,
+      "yeongam": 22.44
+    }
+  },
+  "safety_car_model": {
+    "driver_incident_rate": 0.001491,
+    "race_incident_probability_per_lap": 0.0294,
+    "deployment_given_incident_probability": 0.75,
+    "min_duration_laps": 2,
+    "max_duration_laps": 5,
+    "sc_lap_time_delta": 30.0,
+    "street_circuit_multiplier": 1.75
+  },
+  "tire_model": {
+    "parameters": {
+      "SOFT": {
+        "base_pace_offset": -0.85,
+        "degradation_linear": 0.04671,
+        "degradation_quadratic": 0.005866,
+        "dry_suitability_penalty": 0.0,
+        "rain_suitability_penalty": 18.0
+      },
+      "MEDIUM": {
+        "base_pace_offset": 0.0,
+        "degradation_linear": 0.02598,
+        "degradation_quadratic": 0.002472,
+        "dry_suitability_penalty": 0.0,
+        "rain_suitability_penalty": 18.0
+      },
+      "HARD": {
+        "base_pace_offset": 0.65,
+        "degradation_linear": 0.0149,
+        "degradation_quadratic": 0.001193,
+        "dry_suitability_penalty": 0.0,
+        "rain_suitability_penalty": 18.0
+      },
+      "INTERMEDIATE": {
+        "base_pace_offset": 3.8,
+        "degradation_linear": 0.073,
+        "degradation_quadratic": 0.005043,
+        "dry_suitability_penalty": 6.5,
+        "rain_suitability_penalty": 1.0
+      },
+      "WET": {
+        "base_pace_offset": 6.2,
+        "degradation_linear": 0.05478,
+        "degradation_quadratic": 0.003901,
+        "dry_suitability_penalty": 12.0,
+        "rain_suitability_penalty": 0.0
+      }
+    },
+    "r2_scores": {
+      "SOFT": 0.9993,
+      "MEDIUM": 0.9997,
+      "HARD": 0.9999,
+      "INTERMEDIATE": 1.0,
+      "WET": 0.9999
+    }
+  },
+  "circuits": {
+    "monza": {
+      "name": "Autodromo Nazionale Monza",
+      "circuit_id": "monza",
+      "total_laps": 53,
+      "baseline_lap_time": 81.5,
+      "circuit_wear_factor": 0.85,
+      "is_street_circuit": false,
+      "pit_loss": 23.5
+    },
+    "silverstone": {
+      "name": "Silverstone Circuit",
+      "circuit_id": "silverstone",
+      "total_laps": 52,
+      "baseline_lap_time": 87.8,
+      "circuit_wear_factor": 1.15,
+      "is_street_circuit": false,
+      "pit_loss": 24.2
+    },
+    "spa": {
+      "name": "Circuit de Spa-Francorchamps",
+      "circuit_id": "spa",
+      "total_laps": 44,
+      "baseline_lap_time": 104.5,
+      "circuit_wear_factor": 1.1,
+      "is_street_circuit": false,
+      "pit_loss": 22.8
+    },
+    "monaco": {
+      "name": "Circuit de Monaco",
+      "circuit_id": "monaco",
+      "total_laps": 78,
+      "baseline_lap_time": 73.8,
+      "circuit_wear_factor": 0.65,
+      "is_street_circuit": true,
+      "pit_loss": 21.5
+    },
+    "albert_park": {
+      "name": "Albert Park Grand Prix Circuit",
+      "circuit_id": "albert_park",
+      "total_laps": 58,
+      "baseline_lap_time": 84.2,
+      "circuit_wear_factor": 1.0,
+      "is_street_circuit": true,
+      "pit_loss": 23.8
+    },
+    "americas": {
+      "name": "Circuit of the Americas",
+      "circuit_id": "americas",
+      "total_laps": 56,
+      "baseline_lap_time": 95.8,
+      "circuit_wear_factor": 1.05,
+      "is_street_circuit": false,
+      "pit_loss": 24.5
+    }
+  }
+}
