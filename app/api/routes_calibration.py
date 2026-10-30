@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.db.database import get_db
 from app.db.repository import RaceRepository
 from app.schemas.race import RaceConfigResponse
@@ -14,11 +15,7 @@ from app.services.trainer import DataTrainer
 
 router = APIRouter(prefix="/api/v1/calibration", tags=["Calibration & Training"])
 
-CALIBRATION_FILE = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-    "data",
-    "calibrated_models.json",
-)
+CALIBRATION_FILE = str(settings.BASE_DIR / "data" / "calibrated_models.json")
 
 
 class TrainingRequest(BaseModel):

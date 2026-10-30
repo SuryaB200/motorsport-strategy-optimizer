@@ -28,7 +28,8 @@ A high-performance, stochastic race simulation and strategy optimization engine 
 21. [Interactive Pit-Wall Dashboard (Frontend)](#21-interactive-pit-wall-dashboard-frontend)
 22. [Performance Benchmarks & Runtime Throughput](#22-performance-benchmarks--runtime-throughput)
 23. [Result Analysis & Tactical Decision Insights](#23-result-analysis--tactical-decision-insights)
-24. [Known Limitations](#24-known-limitations)
+24. [Standalone Desktop Application (.exe) & Deployment](#24-standalone-desktop-application-exe--deployment)
+25. [Known Limitations](#25-known-limitations)
 
 ---
 
@@ -507,7 +508,59 @@ Under the objective $J(\pi) = \mathbb{E}[T] + \lambda \cdot \sigma_T$:
 
 ---
 
-## 24. Known Limitations
+## 24. Standalone Desktop Application (.exe) & Deployment
+
+For end users and trackside operations without Python or Node.js runtimes, the system is fully packaged and deployed as a standalone Windows Desktop application:
+
+- **Executable File**: `release/MotorsportOptimizer.exe` (69.5 MB)
+- **Compressed Release Package**: `MotorsportOptimizer-Windows-v1.0.0.zip`
+
+### Architecture of the Standalone App
+```
+┌────────────────────────────────────────────────────────┐
+│             MotorsportOptimizer.exe                    │
+│                                                        │
+│  ┌───────────────────────────┐                         │
+│  │ PyWebView Desktop Window  │ ◄── Embedded Webview    │
+│  │ (1536x960 Native Frame)   │                         │
+│  └─────────────┬─────────────┘                         │
+│                │ HTTP localhost:port                   │
+│  ┌─────────────▼─────────────┐  ┌───────────────────┐  │
+│  │   FastAPI / Uvicorn Host  │  │ React 19 Frontend │  │
+│  │   (Background Thread)     ├──┤ Static SPA Assets │  │
+│  └─────────────┬─────────────┘  └───────────────────┘  │
+│                │ Direct In-Process                     │
+│  ┌─────────────▼─────────────┐                         │
+│  │ Stochastic Simulation     │                         │
+│  │ & MCTS Optimization Engine│                         │
+│  └─────────────┬─────────────┘                         │
+│                │ File IO                               │
+│  ┌─────────────▼─────────────┐                         │
+│  │ SQLite Database & Models  │                         │
+│  └───────────────────────────┘                         │
+└────────────────────────────────────────────────────────┘
+```
+
+### Running the Executable
+1. Simply double-click `MotorsportOptimizer.exe` (or run `.\MotorsportOptimizer.exe` from PowerShell).
+2. The application boots the in-process server, seeds the local database, mounts the React telemetry dashboard, and opens the native desktop analytics window.
+3. If native webview libraries are unavailable on the host, it automatically falls back to opening the system default browser at `http://127.0.0.1:8000/`.
+
+### Building from Source (PyInstaller)
+To regenerate the executable from source:
+```powershell
+# 1. Build production frontend assets
+cd frontend
+npm run build
+cd ..
+
+# 2. Compile standalone binary with PyInstaller spec
+pyinstaller MotorsportOptimizer.spec --clean
+```
+
+---
+
+## 25. Known Limitations
 1. **Single Car Focus**: The current model optimizes the strategy for a single car against stochastic environmental conditions (weather and Safety Cars); it does not currently simulate multi-car traffic, dirty air wake, or defensive blocking.
 2. **Discrete Pit Stops**: Pit stops are modeled as discrete lap-boundary actions rather than sub-lap sector coordinates.
 3. **No Live External Telemetry**: The system relies on synthetic calibrated models rather than real-time track telemetry feeds.

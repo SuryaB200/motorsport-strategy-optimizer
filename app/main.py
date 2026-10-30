@@ -2,6 +2,7 @@
 
 from contextlib import asynccontextmanager
 from pathlib import Path
+import sys
 from typing import AsyncGenerator
 
 from fastapi import FastAPI, Request, status
@@ -72,7 +73,16 @@ app.include_router(optimization_router)
 app.include_router(results_router)
 
 
-frontend_dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+# Support both standard directory layout and PyInstaller frozen runtime
+if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+    bundle_base = Path(sys._MEIPASS)
+else:
+    bundle_base = Path(__file__).resolve().parent.parent
+
+frontend_dist = bundle_base / "frontend" / "dist"
+if not (frontend_dist.exists() and (frontend_dist / "index.html").exists()):
+    frontend_dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+
 if frontend_dist.exists() and (frontend_dist / "index.html").exists():
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
 else:

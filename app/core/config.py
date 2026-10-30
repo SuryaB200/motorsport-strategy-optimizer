@@ -1,11 +1,29 @@
 """Application settings and limits management."""
 
+import shutil
+import sys
 from pathlib import Path
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+if getattr(sys, "frozen", False):
+    BASE_DIR = Path.cwd()
+    # Seed data directory from bundled MEIPASS if running standalone
+    if hasattr(sys, "_MEIPASS"):
+        bundled_data = Path(sys._MEIPASS) / "data"
+        target_data = BASE_DIR / "data"
+        target_data.mkdir(parents=True, exist_ok=True)
+        for seed_file in ["calibrated_models.json", "motorsport_strategy.db"]:
+            src = bundled_data / seed_file
+            dst = target_data / seed_file
+            if src.exists() and not dst.exists():
+                shutil.copy2(src, dst)
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Ensure data directory exists
+(BASE_DIR / "data").mkdir(parents=True, exist_ok=True)
 
 
 class Settings(BaseSettings):
@@ -21,9 +39,10 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
     API_V1_STR: str = "/api/v1"
+    BASE_DIR: Path = BASE_DIR
 
     # Database
-    DATABASE_URL: str = f"sqlite:///{BASE_DIR / 'data' / 'motorsport_strategy.db'}"
+    DATABASE_URL: str = f"sqlite:///{(BASE_DIR / 'data' / 'motorsport_strategy.db').as_posix()}"
 
     # Resource and Guardrail Limits
     MAX_RACE_LAPS: int = Field(default=100, ge=1, le=200)
